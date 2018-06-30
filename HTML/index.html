@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Project Phase 0.5</title>
+        <meta name="eventType" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/style.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script type="text/javascript">
+
+            function submit(button)
+            {
+              //Add if statements that cover the 3 different functions and the does the other one MAYBE here??
+            console.log(button.id);
+            var buttonId = button.id;
+            var handle = buttonId;
+            var method = "GET";
+            send(handle,requestBody, method);
+                return false;
+            }
+
+            function send(path, params, method)
+            {
+                var obj = new XMLHttpRequest();
+                obj.onreadystatechange = function()
+                {
+                    document.getElementById("response").value = obj.responseText;
+                };
+                obj.open(method,path,false);
+                obj.send(params);
+            }
+        </script>
+    </head>
+    <body>
+        
+        <div class="form-group">
+            <label for="comment">Input:</label>
+            <textarea class="form-control" rows="1" id="inputBox" name="inputBox"></textarea>
+        </div>
+        <div class="container">
+            <button type="button" id="poop" class="btn btn-primary btn-md" onclick="submit(this);">Poop</button>
+            <button type="button" id="button2" class="btn btn-primary btn-md" onclick="submit(this);">Joyce</button>    
+            <button type="button" id="button3" class="btn btn-primary btn-md" onclick="submit(this);">Nina</button>
+            <button type="button" id="button4" class="btn btn-primary btn-md" onclick="submit(this);">Button4</button>
+        </div>
+          <h2 id="response"></h2>
+    </body>
+</html>
