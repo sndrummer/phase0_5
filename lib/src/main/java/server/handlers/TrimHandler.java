@@ -1,6 +1,5 @@
 package server.handlers;
 
-import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
@@ -8,10 +7,10 @@ import java.io.IOException;
 import java.io.InputStream;
 
 
-import javax.net.ssl.HttpsURLConnection;
-
+import server.JSON_StringObj;
+import server.StringProcessor;
 import shared.HandlerReadWrite;
-import shared.ObjectDecoder;
+import shared.ObjectDecoderEncoder;
 
 /**
  * @author Samuel Nuttall
@@ -28,24 +27,30 @@ public class TrimHandler extends HandlerReadWrite implements HttpHandler
             
             InputStream reqBody = httpExchange.getRequestBody();
             String reqData = readString(reqBody);
-    
-            ObjectDecoder objectDecoder = new ObjectDecoder();
+            
+            ObjectDecoderEncoder encoder = new ObjectDecoderEncoder();
             String trimRequest = new String();
             try
             {
-                trimRequest = objectDecoder.getTrimRequest(reqData);
-                trimRequest = objectDecoder.getLoadRequest(reqData);
+                trimRequest = encoder.getRequest(reqData);
+                String trimResult = StringProcessor.getInstance().trim(trimRequest);
+                //outputResBody(encoder.toJson(trimResult), httpExchange);
+    
+                JSON_StringObj result = new JSON_StringObj(trimResult);
+                System.out.println("RESULT: " + result);
+                outputResBody(encoder.toJson(result), httpExchange);
             }
             catch (Exception ex)
             {
-                outputResBody("Bad JSON formatting", httpExchange);
+                outputResBody(ex.toString(), httpExchange);
+                //ex.printStackTrace();
             }
             
         }
         catch (IOException e)
         {
             //HttpExchange.sendResponseHeaders(HttpsURLConnection.HTTP_SERVER_ERROR, 0);
-            // e.printStackTrace();
+             e.printStackTrace();
         }
     }
     

@@ -40,10 +40,10 @@ public class ServerCommunicator
         server.setExecutor(null); // set the default executor
         
         System.out.println("Creating contexts");
-        server.createContext("/parseinteger", new ParseIntHandler());
+        server.createContext("/parseInt", new ParseIntHandler());
         server.createContext("/trim", new TrimHandler());
-        server.createContext("/lowercase", new ToLowerCaseHandler());
-        server.createContext("/execCommand", new ExecCmdHandler());
+        server.createContext("/toLower", new ToLowerCaseHandler());
+        server.createContext("/excCmd", new ExecCmdHandler());
         //Default
         server.createContext("/", new FileHandler());
         

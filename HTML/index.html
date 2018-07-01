@@ -14,29 +14,113 @@
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
+
+
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script type="text/javascript">
 
-            function submit(button)
+
+function formatJson(inputText)
+            {
+                var temp = "";
+                var indent = 0;
+                for(var i in inputText)
+                {
+                    var char = inputText[i];
+                    if(char != null)
+                    {
+                        if(char === ']' || char === '}')
+                        {
+                            temp += "\n";
+                            indent--;
+                            for(var j = 0; j < indent; j++)
+                            {
+                                temp += '\t';
+                            }
+
+                        }
+
+                        temp += char;
+
+                        if (char === ',')
+                        {
+                            temp += "\n";
+
+                            for(j = 0; j < indent; j++)
+                            {
+                                temp += '\t';
+                            }
+
+                        }
+                        if(char === '{' || char === '[')
+                        {
+                            temp += "\n";
+                            indent++;
+                            for(j = 0; j < indent; j++)
+                            {
+                                temp += '\t';
+                            }
+                        }
+                    }
+                }
+
+                return temp;
+            }
+
+            function toJsonString(){
+                var input = document.getElementById("inputBox").value;
+                console.log("Converting to JSON: " + input);
+                var obj = JSON.parse('{ "String":"' + input + '"}');
+                var jsonString = JSON.stringify(obj);
+                return jsonString;
+            }
+
+            function parseInt()
+            {
+                document.getElementById("handleBox").value = "/parseInt";
+                submit();
+            }
+            function trim()
+            {
+                document.getElementById("handleBox").value = "/trim";
+                submit();
+            }
+            function lowercase()
+            {
+                document.getElementById("handleBox").value = "/lowercase";
+                submit();
+            }
+            function submit()
             {
               //Add if statements that cover the 3 different functions and the does the other one MAYBE here??
-            console.log(button.id);
-            var buttonId = button.id;
-            var handle = buttonId;
+              var handle = document.getElementById("handleBox").value;
             var method = "GET";
+                //convert to JSON
+
+
+                var input = document.getElementById("inputBox").value;
+                console.log("Converting to JSON: " + input);
+
+
+                var requestBody = formatJson("{String:\"" + input + "\"}");
+            //var requestBody = toJsonString();
+            console.log("HTML REQUEST BODY = " + requestBody);
             send(handle,requestBody, method);
                 return false;
             }
 
             function send(path, params, method)
             {
+                console.log("This is the path - " + path);
                 var obj = new XMLHttpRequest();
                 obj.onreadystatechange = function()
                 {
+                    console.log(obj.responseText);
                     document.getElementById("response").value = obj.responseText;
                 };
                 obj.open(method,path,false);
+                obj.setRequestHeader("Content-Type", "application/json");
                 obj.send(params);
             }
         </script>
@@ -44,14 +128,16 @@
     <body>
         
         <div class="form-group">
+                <label for="comment">Handle:</label>
+                <textarea class="form-control" rows="1" id="handleBox" name="handleBox" ></textarea>
             <label for="comment">Input:</label>
             <textarea class="form-control" rows="1" id="inputBox" name="inputBox"></textarea>
         </div>
         <div class="container">
-            <button type="button" id="poop" class="btn btn-primary btn-md" onclick="submit(this);">Poop</button>
-            <button type="button" id="button2" class="btn btn-primary btn-md" onclick="submit(this);">Joyce</button>    
-            <button type="button" id="button3" class="btn btn-primary btn-md" onclick="submit(this);">Nina</button>
-            <button type="button" id="button4" class="btn btn-primary btn-md" onclick="submit(this);">Button4</button>
+            <button type="button" id="poop" class="btn btn-primary btn-md" onclick="parseInt();">Parse Integer</button>
+            <button type="button" id="button2" class="btn btn-primary btn-md" onclick="trim();">Joyce</button>    
+            <button type="button" id="button3" class="btn btn-primary btn-md" onclick="lowercase();">Nina</button>
+            <button type="button" id="button4" class="btn btn-primary btn-md" onclick="execCommand();">Button4</button>
         </div>
           <h2 id="response"></h2>
     </body>

@@ -34,17 +34,13 @@ public class FileHandler implements HttpHandler
                 path = "HTML" + File.separator + "css" + File.separator + "style.css";
                 
             }
-            else if (commandString.contains("png"))
-            {
-                path = "HTML" + File.separator + "img" + File.separator + "background.png";
-            }
             else if (commandString.contains("404"))
             {
                 path = "HTML" + File.separator + "404.html";
             }
             else
             {
-                path = "HTML" + File.separator + "index.html";
+                path = "HTML" + File.separator + "index3.html";
             }
             System.out.println("Here is the path" + path);
             File file = new File(path);

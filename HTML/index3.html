@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Project Phase 0.5</title>
+        <meta name="eventType" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/style.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+        <script type="text/javascript">
+
+function submit(requestBody)
+{
+    var handle = document.getElementById("handleBox").value;
+    var token = "";
+
+    var method = "post";
+        console.log("REQUEST BODY: " + requestBody);
+    send(handle,requestBody, method, token);
+    return false;
+}
+
+function send(path, params, method, token)
+{
+    console.log("PARAMS: " + params);
+    var obj = new XMLHttpRequest();
+    obj.onreadystatechange = function()
+    {
+        document.getElementById("response").value = formatJson(obj.responseText);
+    };
+    obj.open(method,path,false);
+    obj.setRequestHeader("Content-Type", "application/json");
+    obj.setRequestHeader("Authorization", token);
+    obj.send(params);
+}
+
+           function formatJson(inputText)
+            {
+                var temp = "";
+                var indent = 0;
+                for(var i in inputText)
+                {
+                    var char = inputText[i];
+                    if(char != null)
+                    {
+                        if(char === ']' || char === '}')
+                        {
+                            temp += "\n";
+                            indent--;
+                            for(var j = 0; j < indent; j++)
+                            {
+                                temp += '\t';
+                            }
+
+                        }
+
+                        temp += char;
+
+                        if (char === ',')
+                        {
+                            temp += "\n";
+
+                            for(j = 0; j < indent; j++)
+                            {
+                                temp += '\t';
+                            }
+
+                        }
+                        if(char === '{' || char === '[')
+                        {
+                            temp += "\n";
+                            indent++;
+                            for(j = 0; j < indent; j++)
+                            {
+                                temp += '\t';
+                            }
+                        }
+                    }
+                }
+
+                return temp;
+            }
+            
+            function handleRequest(id){
+                console.log("ID of button is --> " + id);
+                if (id.includes("parseInt")) {
+                    document.getElementById("handleBox").innerHTML = "/parseInt";
+                    document.getElementById("handleBox").value = "/parseInt";
+                }
+                else if (id.includes("trim")) {
+                    document.getElementById("handleBox").innerHTML = "/trim";
+                    document.getElementById("handleBox").value = "/trim";
+                }
+                else if (id.includes("toLower")) {
+                    document.getElementById("handleBox").innerHTML = "/toLower";
+                    document.getElementById("handleBox").value = "/toLower";
+                }
+                else if (id.includes("excCmd")) {
+                    document.getElementById("handleBox").innerHTML = "/excCmd";
+                    document.getElementById("handleBox").value = "/excCmd";
+                }
+                /*
+                 <button type="button" id="parseInt" class="btn btn-primary btn-md" onclick="handleRequest(this.id);">Parse Integer</button>
+        <button type="button" id="trim" class="btn btn-primary btn-md" onclick="handleRequest(this.id);">Trim</button>    
+        <button type="button" id="toLower" class="btn btn-primary btn-md" onclick="handleRequest(this.id);">To Lowercase</button>
+        <button type="button" id="excCmd" class="btn btn-primary btn-md" onclick="handleRequest(this.id);">Execute Command</button>
+                */
+                var input = document.getElementById("requestBox").value;
+                var requestBody = "{string:\"" + input+ "\"}"
+                //document.getElementById("requestBox").value = formatJson("{string:\"string\"}");
+                submit(requestBody);
+            }
+
+        </script>
+    </head>
+    <body>
+        <h2 id="handleBox" name="handleBox">Handle:</h2>
+        <div class="form-group">
+        <label for="comment">Input:</label>
+        <textarea class="form-control" rows="1" id="requestBox" name="requestBox"></textarea>
+    </div>
+    <div class="container">
+
+        <button type="button" id="parseInt" class="btn btn-primary btn-md" onclick="handleRequest(this.id);">Parse Integer</button>
+        <button type="button" id="trim" class="btn btn-primary btn-md" onclick="handleRequest(this.id);">Trim</button>    
+        <button type="button" id="toLower" class="btn btn-primary btn-md" onclick="handleRequest(this.id);">To Lowercase</button>
+        <button type="button" id="excCmd" class="btn btn-primary btn-md" onclick="handleRequest(this.id);">Execute Command</button>
+    </div>
+    <div class="form-group">
+            <label for="comment">Response From the server:</label>
+            <textarea class="form-control" rows="1" id="response"></textarea>
+    </div>
+    </body>
+</html>

@@ -1,3 +1,7 @@
 body{
     margin: 75px;
 }
+
+#response{
+    height:200px;
+}
