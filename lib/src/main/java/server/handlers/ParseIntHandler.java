@@ -26,7 +26,7 @@ public class ParseIntHandler extends HandlerReadWrite implements HttpHandler
         
             InputStream reqBody = httpExchange.getRequestBody();
             String reqData = readString(reqBody);
-            System.out.println("request Body: " + reqData);
+           // System.out.println("request Body: " + reqData);
             ObjectDecoderEncoder encoder = new ObjectDecoderEncoder();
             String parseIntRequest = new String();
             try
@@ -34,7 +34,7 @@ public class ParseIntHandler extends HandlerReadWrite implements HttpHandler
                 parseIntRequest = encoder.getRequest(reqData);
                 String parseIntResult = StringProcessor.getInstance().parseInteger(parseIntRequest);
                 Result result = new Result(parseIntResult);
-                System.out.println("RESULT: " + parseIntResult);
+               // System.out.println("RESULT: " + parseIntResult);
                 outputResBody(result, httpExchange);
             }
             catch (Exception ex)

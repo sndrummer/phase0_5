@@ -43,15 +43,13 @@ public class StringProcessorProxy_Command implements IStringProcessor
     @Override
     public String toLowercase(String input)
     {
-        
-       
+    
+    
         Command cmd = new GenericCommand( receiverClass,
                                           lowercaseMethod,
-                                          new Class<?>[]{ String.class },
+                                          new String[]{ stringClass },
                                           new Object[]{input});
-    
-    
-        Result result = comm.getCommandResult("/toLower", cmd);
+        Result result = comm.getCommandResult(cmd);
         return result.getString();
         
     }
@@ -62,11 +60,10 @@ public class StringProcessorProxy_Command implements IStringProcessor
     
         Command cmd = new GenericCommand( receiverClass,
                                           trimMethod,
-                                          new Class<?>[]{ String.class },
+                                          new String[]{ stringClass },
                                           new Object[]{input});
     
-    
-        Result result = comm.getCommandResult("/trim", cmd);
+        Result result = comm.getCommandResult(cmd);
         return result.getString();
     
     }
@@ -77,12 +74,11 @@ public class StringProcessorProxy_Command implements IStringProcessor
     
         Command cmd = new GenericCommand( receiverClass,
                                           parseIntMethod,
-                                          new Class<?>[]{ String.class },
+                                          new String[]{ stringClass },
                                           new Object[]{input});
     
     
-        Result result = comm.getCommandResult("/parseInt", cmd);
+        Result result = comm.getCommandResult(cmd);
         return result.getString();
-    
     }
 }

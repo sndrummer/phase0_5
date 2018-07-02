@@ -35,7 +35,7 @@ public class ToLowerCaseHandler extends HandlerReadWrite implements HttpHandler
                 String lowerCaseResult = StringProcessor.getInstance().toLowercase(lowerCaseRequest);
                 //outputResBody(encoder.toJson(lowerCaseResult), httpExchange);
                 Result result = new Result(lowerCaseResult);
-                System.out.println("RESULT: " + result);
+               // System.out.println("RESULT: " + result);
                 outputResBody(result, httpExchange);
             }
             catch (Exception ex)

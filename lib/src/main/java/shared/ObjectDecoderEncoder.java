@@ -23,11 +23,19 @@ public class ObjectDecoderEncoder
     {
         JsonReader reader = new JsonReader(new StringReader(reqData));
         Result request = gson.fromJson(reader, Result.class);
-        System.out.println("HERE IS THE STRING: " + request.getString());
+        //System.out.println("HERE IS THE STRING: " + request.getString());
         
         
         //System.out.println("HERE IS THE JSON STRING: " + toJson(request));
         return request.getString();
+    }
+    
+    public Command getCommand(String reqData)
+    {
+        JsonReader reader = new JsonReader(new StringReader(reqData));
+        Command cmd = gson.fromJson(reader, GenericCommand.class);
+        //System.out.println("HERE IS THE STRING: " + request.getString());
+        return cmd;
     }
     
     

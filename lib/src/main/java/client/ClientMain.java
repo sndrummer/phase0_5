@@ -9,11 +9,17 @@ public class ClientMain
     {
         //have arguments be the urlPath, and the second is a string input
         StringProcessorProxy_NoCommand proxy = StringProcessorProxy_NoCommand.getInstance();
-        String result = proxy.parseInteger("12");
-        System.out.println("Here is the result: " + result + ".");
-        String result2 = proxy.trim("poooo        ");
-        System.out.println("Here is the result: " + result2 + ".");
-        String result3 = proxy.toLowercase("BUTTT");
-        System.out.println("Here is the result: " + result3 + ".");
+        proxy.trim("cheese    ");
+        proxy.toLowercase("PPOOPP");
+        proxy.parseInteger("000000");
+        proxy.parseInteger("llll");
+      
+       
+       StringProcessorProxy_Command command = StringProcessorProxy_Command.getInstance();
+       command.trim("cheese    ");
+       command.toLowercase("PPOOPP");
+       command.parseInteger("000000");
+        command.parseInteger("llll");
+       
     }
 }
