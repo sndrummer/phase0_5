@@ -6,7 +6,7 @@ import com.sun.net.httpserver.HttpHandler;
 import java.io.IOException;
 import java.io.InputStream;
 
-import server.JSON_StringObj;
+import shared.Result;
 import server.StringProcessor;
 import shared.HandlerReadWrite;
 import shared.ObjectDecoderEncoder;
@@ -34,13 +34,13 @@ public class ToLowerCaseHandler extends HandlerReadWrite implements HttpHandler
                 lowerCaseRequest = encoder.getRequest(reqData);
                 String lowerCaseResult = StringProcessor.getInstance().toLowercase(lowerCaseRequest);
                 //outputResBody(encoder.toJson(lowerCaseResult), httpExchange);
-                JSON_StringObj result = new JSON_StringObj(lowerCaseResult);
+                Result result = new Result(lowerCaseResult);
                 System.out.println("RESULT: " + result);
-                outputResBody(encoder.toJson(result), httpExchange);
+                outputResBody(result, httpExchange);
             }
             catch (Exception ex)
             {
-                outputResBody(ex.toString(), httpExchange);
+                outputResBody(new Result(ex.toString()), httpExchange);
                 //ex.printStackTrace();
             }
         

@@ -27,13 +27,15 @@ public class ProxyDecoder
         return json;
     }
     
-  
-    public String toResult(String respData, String result) throws Exception
+    
+    public Result toResult(String respData, Result result) throws Exception
     {
-        String myResult = result;
+        System.out.println("REspData :" + respData);
+        Result myResult = result;
         try
         {
             myResult = gson.fromJson(respData, result.getClass());
+            System.out.println("This is my final Form " + myResult.getString());
         }
         catch (Exception ex)
         {

@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 
-import server.JSON_StringObj;
+import shared.Result;
 import server.StringProcessor;
 import shared.HandlerReadWrite;
 import shared.ObjectDecoderEncoder;
@@ -35,14 +35,13 @@ public class TrimHandler extends HandlerReadWrite implements HttpHandler
                 trimRequest = encoder.getRequest(reqData);
                 String trimResult = StringProcessor.getInstance().trim(trimRequest);
                 //outputResBody(encoder.toJson(trimResult), httpExchange);
-    
-                JSON_StringObj result = new JSON_StringObj(trimResult);
-                System.out.println("RESULT: " + result);
-                outputResBody(encoder.toJson(result), httpExchange);
+     
+                Result result = new Result(trimResult);
+                outputResBody(result, httpExchange);
             }
             catch (Exception ex)
             {
-                outputResBody(ex.toString(), httpExchange);
+                outputResBody(new Result(ex.toString()), httpExchange);
                 //ex.printStackTrace();
             }
             

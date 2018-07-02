@@ -40,19 +40,13 @@ public class HandlerReadWrite
         return sb.toString();
     }
     
-    public void outputResBody(String result, HttpExchange exchange) throws IOException
+    public void outputResBody(Result result, HttpExchange exchange) throws IOException
     {
         
             ProxyDecoder dec = new ProxyDecoder();
             String respData = dec.toJson(result);
-            if (respData.contains("isCleared"))
-            {
-                sendWriteClose(exchange, result.toString());
-            }
-            else
-            {
-                sendWriteClose(exchange, respData);
-            }
+        sendWriteClose(exchange, respData);
+        
         
     }
     

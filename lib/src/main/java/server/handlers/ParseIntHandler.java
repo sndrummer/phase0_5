@@ -6,7 +6,7 @@ import com.sun.net.httpserver.HttpHandler;
 import java.io.IOException;
 import java.io.InputStream;
 
-import server.JSON_StringObj;
+import shared.Result;
 import server.StringProcessor;
 import shared.HandlerReadWrite;
 import shared.ObjectDecoderEncoder;
@@ -33,14 +33,14 @@ public class ParseIntHandler extends HandlerReadWrite implements HttpHandler
             {
                 parseIntRequest = encoder.getRequest(reqData);
                 String parseIntResult = StringProcessor.getInstance().parseInteger(parseIntRequest);
-                JSON_StringObj result = new JSON_StringObj(parseIntResult);
+                Result result = new Result(parseIntResult);
                 System.out.println("RESULT: " + parseIntResult);
-                outputResBody(encoder.toJson(result), httpExchange);
+                outputResBody(result, httpExchange);
             }
             catch (Exception ex)
             {
-                
-                outputResBody(ex.toString(), httpExchange);
+    
+                outputResBody(new Result(ex.toString()), httpExchange);
                 //ex.printStackTrace();
             }
         

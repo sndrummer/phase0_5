@@ -9,6 +9,7 @@ import java.io.InputStream;
 import server.StringProcessor;
 import shared.HandlerReadWrite;
 import shared.ObjectDecoderEncoder;
+import shared.Result;
 
 /**
  * @author Samuel Nuttall
@@ -34,7 +35,7 @@ public class ExecCmdHandler extends HandlerReadWrite implements HttpHandler
             }
             catch (Exception ex)
             {
-                outputResBody(ex.toString(), httpExchange);
+                outputResBody(new Result(ex.toString()), httpExchange);
             }
         
         }

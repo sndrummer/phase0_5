@@ -7,8 +7,6 @@ import com.google.gson.stream.JsonReader;
 import java.io.Reader;
 import java.io.StringReader;
 
-import server.JSON_StringObj;
-
 public class ObjectDecoderEncoder
 {
     private Gson gson = new Gson();
@@ -24,7 +22,7 @@ public class ObjectDecoderEncoder
     public String getRequest(String reqData)
     {
         JsonReader reader = new JsonReader(new StringReader(reqData));
-        JSON_StringObj request = gson.fromJson(reader, JSON_StringObj.class);
+        Result request = gson.fromJson(reader, Result.class);
         System.out.println("HERE IS THE STRING: " + request.getString());
         
         
